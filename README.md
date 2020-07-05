@@ -26,7 +26,10 @@ In this file you manipulate 2 entities:
 - the second one is drivers: you have as many drivers as you want as the same broadlink can be used to control a TV, a switch, Air Con, Fan, anything with IR blaster. It is advised to have one driver by actual device you want to control.
 
 ## Setup: 
-Before the setup, the one think you need to get right is to write the path to the python-broadlink driver. It is a line looking like that:
+first step is to install this project : https://github.com/mjg59/python-broadlink.
+All the broadlink communcation is done through this genius project. The driver won't work if you don't have installed it.
+After the setup, the one think you need to get right is to write the path to the python-broadlink driver you just installed. 
+You need to go to the settings.js file and look for a line like that:
 "broadlinkpath": "~/Neeo/Python/python-broadlink-master".
 If you are not sure of the path, just go to the python-broadlink-master folder you have created when installing the driver and type: pwd. It should display the correct path.
 Be mindfull that the path should end by 'python-broadlink-master' (no '/' at the end.
