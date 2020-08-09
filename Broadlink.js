@@ -8,6 +8,7 @@ const ACcontrol = require('./ACController');
 const CustomControl = require('./CustomController');
 const fs = require('fs')
 const { exec } = require("child_process");
+const { Console } = require("console");
 var lineReader = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -46,13 +47,14 @@ function extractDiscoveredCommands(message) {
       commandsTable.push(intermTable[i].split('\n')[0]);
     };
   }
+  console.log('Extracting Broadlink Data.')
   return commandsTable;
 }
 
 function discoverBroadlinkCommands() {
   return new Promise(function (resolve, reject) {
     console.log('Starting Broadlink discovery');
-    exec('python3 ' + settings.broadlinkpath + '/cli/broadlink_discovery' , function(error, stdout, stderr) {
+    exec('python ' + settings.broadlinkpath + '/cli/broadlink_discovery' , function(error, stdout, stderr) {
       if (error) {reject('Error will using Broadlink Library :' + error)}
       else {
         console.log(stdout)
@@ -87,6 +89,7 @@ function compareDiscoveryVsConfig(discoveredCommands) {// check for new broadlin
 function compareConfigVsDiscovery(discoveredCommands) {// check if some broadlink are of line or IP adress has changed.
   return new Promise(function (resolve, reject) {
     let lostBroadlink = new Array();
+    console.log('Intenting to get the config.')
     getConfig().then((config) => {
       if (config) {
           config.broadlinks.forEach(element => {
@@ -235,6 +238,8 @@ function createDevices () {
 if (process.argv.slice(2)[0] == 'setup') {
   discoverBroadlinkCommands()
     .then((stdout) => {
+      try {
+
           let discoveredCommands = extractDiscoveredCommands(stdout)
           compareConfigVsDiscovery(discoveredCommands)
           .then((lostBroadlink) => {
@@ -251,15 +256,26 @@ if (process.argv.slice(2)[0] == 'setup') {
                 })
             }) 
           })
-          .catch (() => {console.log('Error during Broadlink detection, check your setup.')})
+          .catch (() => {console.log('Error during Broadlink detection, check your setup.')});
+        }
+        catch (err) {
+          console.log('Error when creating the settings')
+          console.log(err);
+        }
   })
 } else {
-  getConfig().then(()=> {
-    createDevices().then(() => {
-    var brainMgr = new BrainManager(__dirname +'/brainConfig.js', driverTable, 'JAC Broadlink');
-    brainMgr.launchNeeo();
+  try {
+    getConfig().then(()=> {
+      createDevices().then(() => {
+      var brainMgr = new BrainManager(__dirname +'/brainConfig.js', driverTable, 'JAC Broadlink');
+      brainMgr.launchNeeo();
+      })
     })
-  })
+  }
+  catch (err) {
+    console.log("Type node Broadlink.js setup");
+
+  }
 }
 
  

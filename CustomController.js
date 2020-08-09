@@ -73,7 +73,7 @@ module.exports = function controller(name, command) {
       if (self.switchLearnGet()) {
       self.sendComponentUpdate({uniqueDeviceId: deviceId,component: 'StatusText',value: "Trying to learn command:" + command})
           .catch( (err) => {console.log(err)}) 
-          exec('python3 ' + self.command+ ' --learn', (stdout, stderr) => {
+          exec('python ' + self.command+ ' --learn', (stdout, stderr) => {
             if (!stderr.includes('No data received...')) {
               self.getIR().then((IRFile)=>{
                 if (IRFile.IR) {

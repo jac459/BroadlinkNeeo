@@ -107,7 +107,7 @@ module.exports = function controller(name, command) {
       if (self.switchLearnGet()) {
       self.sendComponentUpdate({uniqueDeviceId: deviceId,component: 'tempText',value: "Trying to learn command:" + command})
           .catch( (err) => {console.log(err)}) 
-          exec('python3 ' + self.command+ ' --learn', (stdout, stderr) => {
+          exec('python ' + self.command+ ' --learn', (stdout, stderr) => {
             if (!stderr.includes('No data received...')) {
               self.getIR().then((IRFile)=>{
                 if (IRFile.IR) {
@@ -141,7 +141,7 @@ module.exports = function controller(name, command) {
             self.sendComponentUpdate({uniqueDeviceId: deviceId,component: 'tempText',value: "Command doesn't exist, activate learn feature :" + fanTableDevice[self.currentFan] + self.currentTemp})
            }
            else{
-             exec('python3 ' + self.command+ ' --send ' + IRCommand);
+             exec('python ' + self.command+ ' --send ' + IRCommand);
           }
         }
       })
