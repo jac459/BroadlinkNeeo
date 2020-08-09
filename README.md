@@ -35,9 +35,9 @@ If you are not sure of the path, just go to the python-broadlink-master folder y
 Be mindfull that the path should end by 'python-broadlink-master' (no '/' at the end.
 
 To launch the driver, you just need to run the command:
-==> node Broadlink.js
+==> node Broadlink.js setup
 1. First your driver will detect your broadlinks. You will be asked to give them a name. Please take note of these names and keep them for later. Choose simple one word names, it is case sensitive and avoid special caracter. For example: Living, Bedroom... If you don't knw the mac address of your broadlink and then don't know which one is detected, just unplug all broadlink but one. Then repeat for other devices you have.
-A config.js file will be created with the list of your broadlinks, their IP address and mac address. If a broadlink has its IP address changed, the driver will detect it and automatically correct it in the config file. Don't change this file if you don't know what you are doing (well in fact, just don't change this file, if not sure, delete it and a new one will be created).
+A config.js file will be created with the list of your broadlinks, their IP address and mac address. If a broadlink has its IP address changed, the driver will detect it and automatically correct it in the config file. Don't change this file if you don't know what you are doing (well in fact, just don't change this file, if not sure, delete it and a new one will be created.
 2. Now you can edit the setting.js with other values. You need to decide how many drivers you want to create (in the drivers section.
         {"name":"LivingAC", "type":"AC", "broadlink":"Living"},
         {"name":"LivingTV", "type":"Custom", "broadlink":"Living"},
@@ -45,7 +45,7 @@ A config.js file will be created with the list of your broadlinks, their IP addr
         The name part: is the name your driver will have. 
         The type can be AC (air con) or Custom (any type). 
         The broadlink has to be the name of one of your broadlink you have setup earlier (case sensitive).
-3. Now you can launch again the driver, he will setup the Neeo Brain IP and port, if you have many, you can go to the config.js file to manually put the one you want.
+3. Now you can launch again the driver without setup, he will setup the Neeo Brain IP and port, if you have many, you can go to the config.js file to manually put the one you want.
 4. Finally you are good to go to your Neeo Mobile app in order to find the drivers (search at 'JAC' or the name of the driver you choose in the settings file). The drivers are configured as AVReceiver by default as it allows reacher feature, too make them appears on the screen, you need to create a recipe calling them with 'show control'. You can then choose the proper name and icon for your device.
 At first, in order to teach the IR codes to your device, you need to use both the switch : Learn On/Off and the label: status (custom driver) or tempText (AC driver).
 5. Switch on using the Learning mode by using the Learn switch. Then press the button you want to learn and then press your legacy remote equivalent button in direction of the broadlink used by this driver. When ready to learn or when the button has been learned, the remote well tell you by using the label (status or tempText).
