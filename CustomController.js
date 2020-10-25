@@ -107,7 +107,7 @@ module.exports = function controller(name, command) {
             self.sendComponentUpdate({uniqueDeviceId: deviceId,component: 'StatusText',value: "Command doesn't exist, activate learn feature :" + fanTableDevice[self.currentFan] + self.currentTemp})
            }
            else{
-             exec('python3 ' + self.command+ ' --send ' + IRCommand);
+             exec('python ' + self.command+ ' --send ' + IRCommand);
           }
         }
       })
