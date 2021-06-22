@@ -1,3 +1,6 @@
+
+# DEPRECATED - THIS DRIVER IS NOW INCLUDED INSIDE THE META.
+
 # BroadlinkNeeo
 Custom driver for Broadlink and Neeo remote (and one Air Con specialized driver)
 
